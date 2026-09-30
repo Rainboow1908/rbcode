@@ -1,0 +1,40 @@
+# 依赖与构建产物
+node_modules/
+dist/
+.wrangler/
+.vite/
+.vite-temp/
+*.tsbuildinfo
+
+# Rust / Tauri
+companion/src-tauri/target/
+companion/src-tauri/gen/
+companion/dist-installer/
+companion/release/
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/app/keystore.properties
+android/app/*.keystore
+android/app/*.jks
+android/app/src/main/assets/linux/
+android/linux-assets/
+
+# 运行时数据与缓存
+.rbcode/
+.reasonix/
+.playwright-mcp/
+.tmp/
+*.log
+.DS_Store
+Thumbs.db
+
+# 构建出的客户端安装包（自己构建后放在这里）
+web/public/downloads/
+
+# 本地环境变量
+.env
+.env.*

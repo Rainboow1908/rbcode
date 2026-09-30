@@ -1,0 +1,61 @@
+/* ---------------------------------------------------------------------------
+ * OreUI 控件样式（直接用上游项目的样式表，不自行仿写）
+ *
+ * 来源：https://github.com/Spectrollay-OreUI/OreUI （MIT, © 2020 Spectrollay）
+ *   - colors.css  = src/components/design/colors/style.css      （逐字复制）
+ *   - button.css  = src/components/controls/button/style.css    （逐字复制）
+ *   - fonts.css   = 上游 src/assets/fonts/NotoSans-Bold.ttf 的 @font-face 声明（本仓库补写）
+ *
+ * 用法：<button class="oreui_btn_inner size_* status_*">…</button>
+ * 这正是上游 OreUIButton 组件（components/controls/button/index.js）内部渲染出的结构，
+ * 见 components/OreButton.tsx。
+ *
+ * 下面这段只调上游自己暴露的尺寸变量（--oreui-btn-*），把「游戏菜单里的大按钮」
+ * 收成我们界面能用的紧凑尺寸——按钮的外观依然全部由 button.css 决定。
+ * --------------------------------------------------------------------------- */
+
+@import './fonts.css';
+@import './colors.css';
+@import './button.css';
+@import './checkbox.css';
+
+.oreui {
+  --oreui-btn-height: 32px;
+  --oreui-btn-margin: 0px;
+  --oreui-btn-padding-bottom: 4px;
+  /* 上游默认 4px：按下时「按钮面」整体下沉一截（这是上游自己的按下效果，照抄） */
+  --oreui-btn-active-offset: 4px;
+  --oreui-btn-icon-size: 14px;
+}
+
+/* ---------------------------------------------------------------------------
+ * 桥接：上游的 .oreui_btn_inner 是给「游戏菜单里居中排布的按钮」写的 ——
+ * display: flex（撑满一整行）、justify-content: center（内容居中）、固定 margin。
+ * 我们这里是网页控件流里的按钮，所以只把**布局**那几条放回本项目自己的类
+ * （revert-layer：回落到 utilities 层；没有对应类就用元素默认值）。
+ * 颜色 / 描边 / 凿边 / 字体 / 按下的下沉手感，全部仍然来自上游 button.css。
+ * --------------------------------------------------------------------------- */
+
+.oreui .oreui_btn_inner {
+  display: inline-flex;
+  justify-content: revert-layer;
+  justify-self: auto;
+  margin: revert-layer;
+  /* 上游把底部 --oreui-btn-padding-bottom 那一档留给了底影（inset 0 -4px 的暗边），
+     文字居中于**可见的按钮面**；顶部再留一份内边距文字就偏下了，所以顶部归零。 */
+  padding-top: 0;
+}
+
+/* 上游按下时底部内边距会减半、高度也减了下沉量，文字相对按钮面会偏高 1px；
+   这里按下沉量直接抵消，让文字正好居中于「沉下去之后」的那块按钮面。 */
+.oreui .oreui_btn_inner:active:not(:disabled):not(.status_disabled) {
+  padding-bottom: calc(var(--oreui-btn-padding-bottom) - var(--oreui-btn-active-offset));
+}
+
+/* 禁用态直接用上游自己的配色（浅灰底 + 深灰字），不再叠本项目的半透明淡出 ——
+   这样「能不能点」只差颜色，尺寸与形状完全一致。 */
+.oreui .oreui_btn_inner:disabled {
+  opacity: 1;
+}
+
+

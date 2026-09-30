@@ -1,0 +1,75 @@
+/* ---------------------------------------------------------------------------
+ * OreUI 复选框（.custom-checkbox）
+ *
+ * 来源：https://github.com/Spectrollay-OreUI/OreUI （MIT, © 2020 Spectrollay）
+ *   - 规则逐字取自上游 src/styles/oreui.css 的「Checkbox 复选框」一节
+ *   - 勾选图标取自上游 src/assets/images/check_white.png
+ *
+ * 用法：<div class="custom-checkbox on|off enabled|disabled"><img src=… /></div>
+ * 这正是上游 CustomCheckbox 组件（src/components/controls/checkbox/index.js）渲染出的结构，
+ * 见 components/OreCheckbox.tsx。
+ * --------------------------------------------------------------------------- */
+
+.custom-checkbox {
+  background-color: #8c8d90;
+  border: 2px solid #1e1e1f;
+  box-shadow:
+    inset 2px 2px rgba(255, 255, 255, 0.2),
+    inset -2px -2px rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  height: 20px;
+  position: relative;
+  width: 20px;
+}
+
+.custom-checkbox:hover {
+  background-color: #b1b2b5;
+}
+
+.custom-checkbox:active {
+  background-color: #58585a;
+}
+
+.custom-checkbox.on {
+  background-color: #3c8527;
+}
+
+.custom-checkbox.on:hover {
+  background-color: #2a641c;
+}
+
+.custom-checkbox.on:active {
+  background-color: #1d4d13;
+}
+
+.custom-checkbox.disabled {
+  background-color: #d0d1d4;
+  border: 2px solid #8c8d90;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.custom-checkbox.disabled:hover,
+.custom-checkbox.disabled:active {
+  background-color: #d0d1d4;
+  border: 2px solid #8c8d90;
+  box-shadow: none;
+}
+
+.custom-checkbox img {
+  display: none;
+  height: 27px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 27px;
+}
+
+.custom-checkbox.disabled img {
+  filter: grayscale(100%) brightness(50%);
+}
+
+.custom-checkbox.on img {
+  display: block;
+}

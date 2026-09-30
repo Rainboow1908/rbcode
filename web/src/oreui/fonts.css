@@ -1,0 +1,11 @@
+/* OreUI 按钮使用的字体。
+ *
+ * 文件取自 Spectrollay-OreUI（MIT）的 src/assets/fonts/NotoSans-Bold.ttf，
+ * 未做任何改动；NotoSans 本身是 OFL 许可的开源字体。
+ * OreUI 的按钮组件把这一族指定为 --oreui-btn-font-family: "NotoSans Bold", sans-serif。 */
+
+@font-face {
+  font-display: swap;
+  font-family: 'NotoSans Bold';
+  src: url('./NotoSans-Bold.ttf') format('truetype');
+}

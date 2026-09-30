@@ -1,0 +1,50 @@
+[package]
+name = "rbcode-companion"
+version = "1.0.0"
+description = "RB Code 本机执行器"
+authors = ["Rainbow"]
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "rbcode_companion_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-autostart = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tiny_http = "0.12"
+rand = "0.8"
+regex = "1"
+walkdir = "2"
+globset = "0.4"
+# computer use：截屏（GDI）、键鼠注入（SendInput）、PNG 编码
+windows = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Globalization",
+    "Win32_Graphics_Gdi",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Console",
+    "Win32_System_Kernel",
+    "Win32_System_Memory",
+    "Win32_System_Pipes",
+    "Win32_System_Threading",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_WindowsAndMessaging",
+] }
+png = "0.17"
+# 联网搜索要用 HTTPS（Bing / DuckDuckGo）。ureq 是阻塞式、纯 Rust（rustls），不需要 OpenSSL。
+ureq = "2"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

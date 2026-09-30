@@ -1,0 +1,1070 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+
+/* ---------------------------------- 滚动条 ---------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* -------------------------------- Markdown -------------------------------- */
+.md-body {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  word-break: break-word;
+  /* 长 URL / 长 JSON 这种没有空格的串也要能断行，否则会把容器横向撑开 */
+  overflow-wrap: anywhere;
+}
+
+/* 工具卡片里嵌的 Markdown（例如压缩摘要）：比消息区小一号、更紧凑 */
+.rb-tool-md .md-body {
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.rb-tool-md .md-body > * + * {
+  margin-top: 0.5rem;
+}
+
+.md-body > *:first-child {
+  margin-top: 0;
+}
+
+.md-body > *:last-child {
+  margin-bottom: 0;
+}
+
+.md-body > * + * {
+  margin-top: 0.7rem;
+}
+
+.md-body h1,
+.md-body h2,
+.md-body h3,
+.md-body h4 {
+  font-weight: 600;
+  color: #f5f5f5;
+  line-height: 1.35;
+}
+
+.md-body h1 {
+  font-size: 1.3rem;
+  margin-top: 1.2rem;
+}
+
+.md-body h2 {
+  font-size: 1.12rem;
+  margin-top: 1.1rem;
+}
+
+.md-body h3 {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.md-body h4 {
+  font-size: 0.92rem;
+}
+
+.md-body ul,
+.md-body ol {
+  padding-left: 1.3rem;
+}
+
+.md-body ul {
+  list-style: disc;
+}
+
+.md-body ol {
+  list-style: decimal;
+}
+
+.md-body li + li {
+  margin-top: 0.2rem;
+}
+
+.md-body li > ul,
+.md-body li > ol {
+  margin-top: 0.2rem;
+}
+
+.md-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82em;
+  /* 深色下是浅灰叠层、浅色下是深灰叠层，跟随主题 */
+  background: color-mix(in srgb, var(--color-neutral-200) 14%, transparent);
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+}
+
+.md-body pre {
+  /* 跟随主题：深色/极光/极简是深底（极光下还半透明，透出光带），浅色是白底 */
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-neutral-800);
+  border-radius: 8px;
+  padding: 0.7rem 0.85rem;
+  overflow-x: auto;
+}
+
+.md-body pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+.md-body blockquote {
+  border-left: 3px solid #3f3f46;
+  padding-left: 0.8rem;
+  color: #a1a1aa;
+}
+
+.md-body table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8125rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.md-body th,
+.md-body td {
+  border: 1px solid #2f2f33;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+}
+
+.md-body th {
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+}
+
+.md-body a {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.md-body hr {
+  border: 0;
+  border-top: 1px solid #2f2f33;
+}
+
+.md-body img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+/* ------------------------------- 浅色主题 -------------------------------
+ * Tailwind v4 的 utilities 都引用 --color-* 变量（例如 bg-neutral-950
+ * 编译成 var(--color-neutral-950)），所以在这里把整套中性色反向映射
+ * 就能一次性换肤，不必逐个组件改 class。强调色单独调，保证浅底上的对比度。
+ * 代码块（.md-body pre）刻意保持深色，语法高亮无需另配主题。
+ */
+
+.light {
+  --color-neutral-950: #fafafa;
+  --color-neutral-900: #ffffff;
+  --color-neutral-800: #efefef;
+  --color-neutral-700: #dedede;
+  --color-neutral-600: #bdbdbd;
+  --color-neutral-500: #8a8a8a;
+  --color-neutral-400: #5c5c5c;
+  --color-neutral-300: #404040;
+  --color-neutral-200: #262626;
+  --color-neutral-100: #171717;
+
+  /* amber：提示 / 主色 */
+  --color-amber-100: #92400e;
+  --color-amber-200: #b45309;
+  --color-amber-300: #b45309;
+  --color-amber-400: #d97706;
+  --color-amber-800: #fcd34d;
+  --color-amber-900: #fef3c7;
+  --color-amber-950: #fffbeb;
+
+  /* emerald：成功 / 已连接 */
+  --color-emerald-300: #047857;
+  --color-emerald-400: #059669;
+  --color-emerald-500: #10b981;
+  --color-emerald-900: #d1fae5;
+  --color-emerald-950: #ecfdf5;
+
+  /* red：失败 / 危险 */
+  --color-red-200: #b91c1c;
+  --color-red-300: #b91c1c;
+  --color-red-400: #dc2626;
+  --color-red-900: #fecaca;
+  --color-red-950: #fef2f2;
+
+  color-scheme: light;
+}
+
+.light * {
+  scrollbar-color: #c4c4c4 transparent;
+}
+
+.light *::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+}
+
+.light .md-body h1,
+.light .md-body h2,
+.light .md-body h3,
+.light .md-body h4 {
+  color: #171717;
+}
+
+.light .md-body blockquote {
+  border-left-color: #d4d4d4;
+  color: #525252;
+}
+
+.light .md-body th,
+.light .md-body td {
+  border-color: #d4d4d4;
+}
+
+.light .md-body th {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.light .md-body hr {
+  border-top-color: #e5e5e5;
+}
+
+.light .md-body a {
+  color: #2563eb;
+}
+
+/* 浅色主题下代码块的语法高亮：github-dark 的 token 颜色在浅底上看不清，
+   这里按 GitHub Light 的配色覆盖一遍（.hljs 的 color 也要盖）。 */
+.light .md-body pre .hljs,
+.light .md-body pre code {
+  color: #24292e;
+}
+
+.light .md-body .hljs-comment,
+.light .md-body .hljs-quote {
+  color: #6a737d;
+}
+
+.light .md-body .hljs-keyword,
+.light .md-body .hljs-selector-tag,
+.light .md-body .hljs-subst {
+  color: #d73a49;
+}
+
+.light .md-body .hljs-string,
+.light .md-body .hljs-doctag,
+.light .md-body .hljs-regexp {
+  color: #032f62;
+}
+
+.light .md-body .hljs-number,
+.light .md-body .hljs-literal,
+.light .md-body .hljs-variable,
+.light .md-body .hljs-template-variable {
+  color: #005cc5;
+}
+
+.light .md-body .hljs-title,
+.light .md-body .hljs-section,
+.light .md-body .hljs-selector-id {
+  color: #6f42c1;
+}
+
+.light .md-body .hljs-attr,
+.light .md-body .hljs-attribute {
+  color: #005cc5;
+}
+
+.light .md-body .hljs-built_in,
+.light .md-body .hljs-type {
+  color: #e36209;
+}
+
+.light .md-body .hljs-tag,
+.light .md-body .hljs-name {
+  color: #22863a;
+}
+
+.light .md-body .hljs-meta {
+  color: #b31d28;
+}
+
+.light .md-body .hljs-symbol,
+.light .md-body .hljs-bullet {
+  color: #e36209;
+}
+
+.light .md-body .hljs-addition {
+  color: #22863a;
+  background: #f0fff4;
+}
+
+.light .md-body .hljs-deletion {
+  color: #b31d28;
+  background: #ffeef0;
+}
+
+/* ------------------------------ 极光主题（aurora） ------------------------------
+ * 深蓝底 + 青色主色：中性色整体偏蓝，amber 这一路主色被换成 cyan，
+ * 于是所有按钮 / 高亮 / 进度都跟着变成青色，得到一套全新观感。
+ */
+
+.aurora {
+  /* 面板用半透明 + 毛玻璃：既透出极光，又靠 backdrop-blur 保持内容清晰 */
+  --color-neutral-950: rgb(6 10 20 / 0.58);
+  --color-neutral-900: rgb(12 18 32 / 0.7);
+  --color-neutral-800: rgb(24 34 58 / 0.5);
+  --color-neutral-700: rgb(36 48 76 / 0.72);
+  --color-neutral-600: #3b4a6b;
+  --color-neutral-500: #7c8db0;
+  --color-neutral-400: #a7b6d4;
+  --color-neutral-300: #c6d2e8;
+  --color-neutral-200: #dde6f5;
+  --color-neutral-100: #eef3fb;
+
+  --color-amber-100: #a5f3fc;
+  --color-amber-200: #67e8f9;
+  --color-amber-300: #22d3ee;
+  --color-amber-400: #22d3ee;
+  --color-amber-500: #06b6d4;
+  --color-amber-600: #0891b2;
+  --color-amber-800: #155e75;
+  --color-amber-900: #083344;
+  --color-amber-950: #06202b;
+
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-900: #7f1d1d;
+  --color-red-950: #2a0f14;
+
+  color-scheme: dark;
+}
+
+/* 极光的画布：深色底放 html，body 保持透明，
+   这样固定在 body::before/::after 上的极光层（z-index:-1）能透出来。 */
+.aurora html {
+  background-color: #04060e;
+}
+
+.aurora body {
+  background-color: transparent;
+}
+
+.aurora * {
+  scrollbar-color: #26324f transparent;
+}
+
+.aurora *::-webkit-scrollbar-thumb {
+  background: #26324f;
+}
+
+/* 极光：深蓝夜空 + 地平线绿光，叠加两三条又宽又柔的绿色光带（上方带紫）。
+   光带用有限的椭圆渐变（两端自然淡出），所以旋转/漂移时能看出明显在动。
+   性能：不用 filter: blur，也不动画 background-position，只动 transform / opacity。 */
+
+/* 极光背景由 WebGL 着色器绘制（见 components/AuroraBackground.tsx）。
+   WebGL2 不可用、或系统开了「减少动态效果」时，容器上的静态渐变兜底。 */
+
+/* 容器始终固定在底层（不能只在 .aurora 下——否则非极光主题时
+   canvas 会退回成默认 300×150 的普通元素，把 flex 布局挤乱） */
+.rb-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rb-aurora-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* WebGL2 不可用时的静态兜底（只在极光主题显示） */
+.aurora .rb-aurora {
+  background:
+    radial-gradient(120% 60% at 50% 108%, rgba(22, 163, 74, 0.75), transparent 62%),
+    radial-gradient(70% 42% at 14% -8%, rgba(124, 58, 237, 0.6), transparent 68%),
+    linear-gradient(180deg, #0a1230 0%, #10224c 32%, #0d3b57 58%, #0b6b48 82%, #12a150 100%);
+}
+
+/* 应用底色改成透明，别盖住极光；面板/卡片本身是半透明的 */
+.aurora .rb-app-bg {
+  background-color: transparent;
+}
+
+/* 经典三栏下，主区也要垫上和左右两栏一样的半透明底，
+   否则中间完全透明、两边有底色，看起来不统一 */
+.aurora .rb-main {
+  background-color: var(--color-neutral-950);
+}
+
+/* 毛玻璃：常驻栏位都加一层 backdrop-blur，透出极光的同时保证文字清晰 */
+.aurora .rb-main,
+.aurora .rb-workbench > .rb-main,
+.aurora aside {
+  backdrop-filter: blur(12px) saturate(1.1);
+}
+
+/* 设置页 / 目录选择器 / 对话框：也走毛玻璃（不再写死实色） */
+.aurora .rb-solid {
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+/* 极光下所有半透明浮层统一毛玻璃：用 class 子串匹配，连透明度变体
+   （bg-neutral-900/70 之类）一起覆盖——下拉、弹层、卡片、对话框、选择器都算。
+
+   注意这里刻意**不匹配 hover: / group-hover: / focus: 前缀**的写法：
+   写成 [class^='…'] + [class*=' …'] 只认「独立类名」（开头或前面是空格）。
+   否则像侧栏会话行那样只带 hover:bg-neutral-900 的元素会一直挂着 backdrop-filter，
+   在圆角里糊出一块看着像「背景」的色块。 */
+.aurora [class^='bg-neutral-900'],
+.aurora [class*=' bg-neutral-900'],
+.aurora [class^='bg-neutral-950'],
+.aurora [class*=' bg-neutral-950'] {
+  backdrop-filter: blur(14px) saturate(1.1);
+}
+
+/* 工作台：没有左右两栏，中间对话区可以更宽 */
+.rb-workbench .max-w-3xl {
+  max-width: 60rem;
+}
+
+/* ------------------------------ OreUI 主题（Minecraft 基岩版观感） ------------------------------
+ * 参考 Spectrollay-OreUI 的原生 Web 实现（MIT）：方角、2px 深色描边、
+ * 内嵌高光 + 底影的「凿边」控件，灰石色阶（#1E1E1F / #313233 / #48494A）+ 主色绿 #3C8527。
+ * 和 .light / .aurora 一样只换皮：调色板走 Tailwind 的 --color-* 变量，
+ * 方角 / 凿边 / 描边都挂在 .oreui 下，不动任何组件结构。
+ */
+
+.oreui {
+  /* 灰石色阶：gray-100 最深、gray-20 最浅（面板 #242425 / 控件 #313233 是原版的层级） */
+  --color-neutral-950: #1e1e1f;
+  --color-neutral-900: #242425;
+  --color-neutral-800: #313233;
+  --color-neutral-700: #48494a;
+  --color-neutral-600: #58585a;
+  --color-neutral-500: #8c8d90;
+  --color-neutral-400: #b1b2b5;
+  --color-neutral-300: #d0d1d4;
+  --color-neutral-200: #e6e8eb;
+  --color-neutral-100: #ffffff;
+
+  /* 主色：OreUI 绿（bg-amber-600 是主按钮底色，hover 用亮一档的 500） */
+  --color-amber-100: #c8f0b4;
+  --color-amber-200: #a0e081;
+  --color-amber-300: #86d562;
+  --color-amber-400: #6cc349;
+  --color-amber-500: #52a535;
+  --color-amber-600: #3c8527;
+  --color-amber-700: #2a641c;
+  --color-amber-800: #1d4d13;
+  --color-amber-900: #153a0e;
+  --color-amber-950: #0f2b0a;
+
+  /* 成功 = OreUI 绿；危险 = OreUI 红 */
+  --color-emerald-300: #a0e081;
+  --color-emerald-400: #6cc349;
+  --color-emerald-500: #3c8527;
+  --color-emerald-600: #2a641c;
+  --color-emerald-800: #1d4d13;
+  --color-emerald-900: #1d4d13;
+  --color-emerald-950: #0f2b0a;
+
+  --color-red-200: #f46d6d;
+  --color-red-300: #ea5e5e;
+  --color-red-400: #df5050;
+  --color-red-900: #8a1616;
+  --color-red-950: #2b0d0d;
+
+  /* 方角：OreUI 里没有圆角（rounded-* 全都读这几个变量） */
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+
+  color-scheme: dark;
+}
+
+/* 方角：OreUI 里没有圆角。
+   注意 Tailwind 的 `rounded`（无后缀那个）是硬编码的 .25rem、不走 --radius-* 变量，
+   `rounded-full` 也是硬编码的 2147483647px —— 所以这里按类名一律拍平。 */
+.oreui [class^='rounded'],
+.oreui [class*=' rounded'] {
+  border-radius: 0;
+}
+
+/* 滚动条：方头灰条 */
+.oreui * {
+  scrollbar-color: #48494a transparent;
+}
+
+.oreui *::-webkit-scrollbar-thumb {
+  background: #48494a;
+  border-radius: 0;
+}
+
+.oreui *::-webkit-scrollbar-thumb:hover {
+  background: #58585a;
+}
+
+/* 选中的文字：一层原版绿 */
+.oreui ::selection {
+  background: rgba(60, 133, 39, 0.55);
+  color: #fff;
+}
+
+/* 标题：MC 那种 2px 硬阴影 */
+.oreui h1,
+.oreui h2,
+.oreui h3,
+.oreui h4 {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* 应用底色：石灰色从上往下压暗，顶上透一点绿光 */
+.oreui .rb-app-bg {
+  background-image:
+    radial-gradient(120% 70% at 50% -25%, rgba(108, 195, 73, 0.12), transparent 62%),
+    linear-gradient(180deg, #2a2b2c 0%, #242425 42%, #1e1e1f 100%);
+}
+
+    // 只换皮 / 不改结构：OreUI 主题下按钮走上游组件（见 components/OreButton.tsx）
+
+/* 输入框 / 下拉 / 文本域：深灰底 + 2px 描边，聚焦时描边转白（OreUI 的做法） */
+.oreui .rb-field {
+  border: 2px solid #1e1e1f;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.28) 0 3px, transparent 3px);
+}
+
+.oreui .rb-field:hover {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 0 3px, transparent 3px);
+}
+
+.oreui .rb-field:focus,
+.oreui .rb-field:focus-visible {
+  border-color: #ffffff;
+}
+
+/* 扁平控件模式下不画凿边 / 描边（那时的字段本来就没有边框和底色） */
+.oreui .rb-flat .rb-field {
+  border-color: transparent;
+  background-image: none;
+}
+
+/* 浮层（下拉 / 对话框）用一圈更深的描边压住边缘 */
+.oreui .rb-menu,
+.oreui .rb-dialog {
+  box-shadow:
+    0 0 0 2px #1e1e1f,
+    0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ------------------------------ 极简主题（minimal） ------------------------------
+ * 接近 opencode 的观感：近黑中性色 + 克制的蓝色主色，并去掉所有阴影，
+ * 让卡片/弹层变成扁平的线框，整体更干净。
+ */
+
+.minimal {
+  --color-neutral-950: #0e0e0e;
+  --color-neutral-900: #151515;
+  --color-neutral-800: #1c1c1c;
+  --color-neutral-700: #262626;
+  --color-neutral-600: #383838;
+  --color-neutral-500: #737373;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-300: #c4c4c4;
+  --color-neutral-200: #e0e0e0;
+  --color-neutral-100: #ededed;
+
+  --color-amber-100: #dbeafe;
+  --color-amber-200: #bfdbfe;
+  --color-amber-300: #93c5fd;
+  --color-amber-400: #60a5fa;
+  --color-amber-500: #3b82f6;
+  --color-amber-600: #2563eb;
+  --color-amber-800: #1e3a8a;
+  --color-amber-900: #172554;
+  --color-amber-950: #0f172a;
+
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+
+  --color-red-200: #fecaca;
+  --color-red-300: #fca5a5;
+  --color-red-400: #f87171;
+  --color-red-900: #7f1d1d;
+  --color-red-950: #2a0f14;
+
+  color-scheme: dark;
+}
+
+.minimal * {
+  scrollbar-color: #262626 transparent;
+}
+
+.minimal *::-webkit-scrollbar-thumb {
+  background: #262626;
+}
+
+/* 扁平化：去掉阴影，改由边框分隔 */
+.minimal .shadow-sm,
+.minimal .shadow,
+.minimal .shadow-md,
+.minimal .shadow-lg,
+.minimal .shadow-xl,
+.minimal .shadow-2xl {
+  box-shadow: none;
+}
+
+/* 用户消息改成蓝色气泡（opencode 的观感） */
+.minimal .rb-bubble-user {
+  background-color: #1d4ed8;
+  color: #f8fafc;
+}
+
+/* 空状态的大字水印：颜色跟中性色走，各主题都合适 */
+.rb-watermark {
+  color: var(--color-neutral-800);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  user-select: none;
+}
+
+/* ----------------------------------- 动画 ----------------------------------- */
+
+@keyframes rb-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rb-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes rb-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.anim-fade {
+  animation: rb-fade-in 0.18s ease-out both;
+}
+
+/* 「正在播放」详情页：从下方稍微推上来一点，像手机那种铺满动画 */
+@keyframes rb-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.anim-detail {
+  animation: rb-detail-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 收起时往下退场，和入场对称 */
+@keyframes rb-detail-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+  }
+}
+
+.anim-detail-out {
+  animation: rb-detail-out 0.18s ease-in both;
+}
+
+.anim-rise {
+  animation: rb-rise 0.22s ease-out both;
+}
+
+.anim-pop {
+  animation: rb-pop 0.16s ease-out both;
+}
+
+.anim-slide {
+  animation: rb-slide-in 0.2s ease-out both;
+}
+
+@keyframes rb-slide-from-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rb-slide-from-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.anim-drawer-left {
+  animation: rb-slide-from-left 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-drawer-right {
+  animation: rb-slide-from-right 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* <details> 展开时内容淡入（思考行、工具卡片详情的展开） */
+.rb-details[open] > .rb-details-body {
+  animation: rb-fade-in 0.16s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade,
+  .anim-rise,
+  .anim-pop,
+  .anim-slide,
+  .anim-drawer-left,
+  .anim-drawer-right,
+  .rb-details[open] > .rb-details-body {
+    animation: none;
+  }
+}
+
+/* -------------------------------- 扁平控件模式 --------------------------------
+ * 打开「扁平控件」后：隐藏所有边框（保留 1px 占位，布局不跳），
+ * 交互元素悬浮时叠一层很淡的亮色（用 background-image 叠加，
+ * 不会盖掉按钮本身的底色，实心按钮也适用）。
+ */
+
+.rb-flat *,
+.rb-flat *::before,
+.rb-flat *::after {
+  border-color: transparent;
+}
+
+.rb-flat :focus-visible {
+  border-color: var(--color-amber-500);
+}
+
+/* 悬浮高亮：用 inset box-shadow 铺一层淡色（它可过渡；而渐变不可），
+   配合 transition 就有淡入淡出。 */
+.rb-flat button,
+.rb-flat summary,
+.rb-flat a {
+  transition:
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+/* 扁平模式下，没写圆角的交互元素给一个默认圆角，
+   否则悬浮高亮会变成直角方块（放 @layer base，Tailwind 的 rounded-* 仍可覆盖） */
+@layer base {
+  .rb-flat :where(button, summary, a) {
+    border-radius: 0.375rem;
+  }
+}
+
+/* 带 .rb-nohover 的（工具卡头、思考行、Used 摘要行、行内小按钮）不做悬浮高亮 */
+.rb-flat button:not(.rb-nohover):hover:not(:disabled),
+.rb-flat summary:not(.rb-nohover):hover,
+.rb-flat a:not(.rb-nohover):hover {
+  box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--color-neutral-100) 8%, transparent);
+}
+
+/* 输入框 / 下拉悬浮给一点底色（带过渡）；聊天输入框不做悬浮高亮 */
+.rb-flat input,
+.rb-flat select {
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.rb-flat input:hover:not(:focus),
+.rb-flat select:hover:not(:focus) {
+  background-color: color-mix(in srgb, var(--color-neutral-100) 5%, transparent);
+}
+
+/* --------------------------------- 扫描动画 ---------------------------------
+ * 紧凑过程模式下，运行中的「Used …」摘要文字有一道扫过去的高光。
+ */
+
+@keyframes rb-scan {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -180% 0;
+  }
+}
+
+.rb-scan {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-neutral-500) 0%,
+    var(--color-neutral-500) 38%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-500) 62%,
+    var(--color-neutral-500) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rb-scan 1.9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-scan {
+    animation: none;
+    background-image: none;
+    color: var(--color-neutral-500);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+/* Accent color: Tailwind v4 colors are CSS custom properties, so overriding the amber-*
+ * variables recolors every amber utility (background, text and border) at once. */
+.rb-color-blue {
+  --color-amber-200: #bfdbfe;
+  --color-amber-300: #93c5fd;
+  --color-amber-400: #60a5fa;
+  --color-amber-500: #3b82f6;
+  --color-amber-600: #2563eb;
+  --color-amber-700: #1d4ed8;
+  --color-amber-800: #1e40af;
+  --color-amber-900: #1e3a8a;
+  --color-amber-950: #172554;
+}
+
+.rb-color-cyan {
+  --color-amber-200: #a5f3fc;
+  --color-amber-300: #67e8f9;
+  --color-amber-400: #22d3ee;
+  --color-amber-500: #06b6d4;
+  --color-amber-600: #0891b2;
+  --color-amber-700: #0e7490;
+  --color-amber-800: #155e75;
+  --color-amber-900: #164e63;
+  --color-amber-950: #083344;
+}
+
+.rb-color-emerald {
+  --color-amber-200: #a7f3d0;
+  --color-amber-300: #6ee7b7;
+  --color-amber-400: #34d399;
+  --color-amber-500: #10b981;
+  --color-amber-600: #059669;
+  --color-amber-700: #047857;
+  --color-amber-800: #065f46;
+  --color-amber-900: #064e3b;
+  --color-amber-950: #022c22;
+}
+
+.rb-color-violet {
+  --color-amber-200: #ddd6fe;
+  --color-amber-300: #c4b5fd;
+  --color-amber-400: #a78bfa;
+  --color-amber-500: #8b5cf6;
+  --color-amber-600: #7c3aed;
+  --color-amber-700: #6d28d9;
+  --color-amber-800: #5b21b6;
+  --color-amber-900: #4c1d95;
+  --color-amber-950: #2e1065;
+}
+
+.rb-color-rose {
+  --color-amber-200: #fecdd3;
+  --color-amber-300: #fda4af;
+  --color-amber-400: #fb7185;
+  --color-amber-500: #f43f5e;
+  --color-amber-600: #e11d48;
+  --color-amber-700: #be123c;
+  --color-amber-800: #9f1239;
+  --color-amber-900: #881337;
+  --color-amber-950: #4c0519;
+}
+
+/* Right-side conversation nav: scrollable but no scrollbar */
+.rb-nav-rail { scrollbar-width: none; }
+.rb-nav-rail::-webkit-scrollbar { display: none; }
+
+/* Dropdown menus: opaque background (theme's neutral-900 is semi-transparent in aurora,
+ * which lets page content show through and looks broken). */
+.rb-menu {
+  background-color: color-mix(in srgb, var(--color-neutral-900) 92%, #000);
+  backdrop-filter: blur(14px) saturate(1.1);
+}
+.rb-dialog {
+  background-color: color-mix(in srgb, var(--color-neutral-900) 94%, #000);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+/* Number inputs: no native spinner / native chrome at all — the wrapper owns the
+ * background so hover stays perfectly uniform (the native spinner painted its own
+ * slightly different shade, which looked off). */
+.rb-num {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+.rb-num::-webkit-outer-spin-button,
+.rb-num::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* Flat controls: settings inputs / selects also go flat (drop the permanent fill,
+ * keep only the hover feedback) so the toggle applies consistently. */
+.rb-flat .rb-field {
+  background-color: transparent;
+}
+
+/* Flat controls: no focus ring at all (flat means no chrome around the field). */
+.rb-flat .rb-field:focus,
+.rb-flat .rb-field:focus-visible {
+  box-shadow: none;
+  outline: none;
+}
+
+/* --------------------------------- 手机端 ---------------------------------
+ * 布局骨架在 App.tsx 里按 useIsMobile 切换（左右两栏收进抽屉），这里只处理
+ * 纯样式的收尾：底部安全区，以及触屏设备上「仅悬浮出现」的控件。
+ */
+
+/* 注意：这里**不要**给 html/body 加 overflow-x（hidden 或 clip 都不行）——
+ * 任何加在根/body 上的横向裁剪都会让 position:fixed 浮层（设置页 / 对话框）的
+ * backdrop-filter 失效，极光下的「毛玻璃」就没 了。横向溢出请从源头修
+ * （顶栏后端名限宽、长文本 break-words），而不是在根上兜底。 */
+
+/* iOS 刘海机：给整个应用留出底部手势条的高度，别让输入区被压住 */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .rb-mobile .rb-app-bg {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* 数学公式（MathJax SVG 输出）：长公式在窄屏上要能横向滚动，别把布局撑破 */
+.md-body mjx-container[display='true'] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+  margin: 1em 0;
+}
+.md-body mjx-container {
+  max-width: 100%;
+}
+
+/* 标签栏横向滚动：不要露出滚动条（标签多了会挤出一条难看的横条） */
+.rb-noscrollbar {
+  scrollbar-width: none;
+}
+.rb-noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 触屏没有悬浮：侧栏里「靠悬浮才出现」的小图标按钮（新建 / 删除 / 移除附件）改成常显，
+ * 否则手机上点不到。复制 / 撤销这类文字按钮同理——手机上也必须点得到。 */
+@media (hover: none) {
+  .group-hover\:block {
+    display: block !important;
+  }
+  .group-hover\:flex {
+    display: flex !important;
+  }
+  /* 「悬浮才显形」的按钮（代码块复制、消息操作行、撤销等）在触屏上常显 */
+  [class*='group-hover'][class*='opacity-100'] {
+    opacity: 1 !important;
+  }
+}
+
+/* 手机端右侧对话导航收起来了：抽屉打开时不要再叠一层浮层 */
+.rb-mobile .rb-nav-rail {
+  display: none;
+}

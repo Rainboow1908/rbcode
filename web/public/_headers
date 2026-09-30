@@ -1,0 +1,3 @@
+# 安装包 / APK：内容会随重建变化，但文件名不变；别让边缘缓存把旧包发出去
+/downloads/*
+  Cache-Control: no-cache, must-revalidate

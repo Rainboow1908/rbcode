@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rbcode",
+  "compatibility_date": "2026-09-01",
+  "main": "./worker/index.ts",
+  "assets": {
+    "directory": "./dist",
+    // /api/* 先进 Worker，其余请求走静态资源
+    "run_worker_first": ["/api/*"],
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

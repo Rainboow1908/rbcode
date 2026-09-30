@@ -1,0 +1,8 @@
+# 部署到 Cloudflare 时排除这些（Wrangler 只上传 dist；它会读 assets 目录下的 .assetsignore）。
+# 注意：downloads/ 下的客户端安装包**要保留**（设置页的下载按钮靠它）。
+
+*.map
+*.md
+.DS_Store
+Thumbs.db
+.wrangler/

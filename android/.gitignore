@@ -1,0 +1,17 @@
+# Android 构建产物与本地配置（不提交）
+.gradle/
+build/
+local.properties
+
+# 前端构建产物（已不再内置，保留以防旧脚本）
+app/src/main/assets/web/
+
+# release 签名（不要提交）
+app/keystore.properties
+app/*.keystore
+
+# 内置 Linux 的原始资源（proot / rootfs 等，本地下载，不进 git）
+linux-assets/
+
+# 内置 Linux 解压用的资源（proot / rootfs，由 fetch-linux-assets.ps1 生成，不进 git）
+app/src/main/assets/linux/
