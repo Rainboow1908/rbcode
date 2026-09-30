@@ -2066,11 +2066,18 @@ export default function SettingsPage(props: Props) {
             <>
               <GroupTitle
                 title={t('音乐', 'Music', '音樂')}
-                desc={t(
-                  '右侧「音乐」面板的设置。所有请求都经本机执行器发出 —— 没连 companion 时面板不可用。',
-                  'Settings for the Music panel on the right. All requests go through the local executor — the panel is unavailable without the companion.',
-                  '右側「音樂」面板的設定。所有請求都經本機執行器發出 —— 沒連 companion 時面板不可用。',
-                )}
+                desc={
+                  t(
+                    '右侧「音乐」面板的设置。所有请求都经本机执行器发出 —— 没连 companion 时面板不可用。',
+                    'Settings for the Music panel on the right. All requests go through the local executor — the panel is unavailable without the companion.',
+                    '右側「音樂」面板的設定。所有請求都經本機執行器發出 —— 沒連 companion 時面板不可用。',
+                  ) +
+                  t(
+                    ' 默认接口由 GD音乐台（music.gdstudio.xyz）提供，仅限非商业用途；商用请换成自建接口。',
+                    ' The default API is provided by GD Studio (music.gdstudio.xyz) for non-commercial use only; use your own endpoint for commercial use.',
+                    ' 預設介面由 GD音乐台（music.gdstudio.xyz）提供，僅限非商業用途；商用請換成自建介面。',
+                  )
+                }
               />
 
               <Row
