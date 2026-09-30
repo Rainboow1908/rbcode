@@ -58,5 +58,4 @@ The Linux root filesystem is not shipped here. Put an arm64 `ubuntu-base-*.tar.g
 AGPL-3.0-or-later; see [LICENSE](LICENSE).
 
 Third-party components keep their own licenses and are listed in
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) — including the default music API
-(GD Studio, CC BY-NC 4.0, non-commercial use only).
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
