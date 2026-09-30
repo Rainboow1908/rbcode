@@ -21,11 +21,16 @@ const SELF_NOTICE: string[] = [
 
 const SELF_LICENSE = 'AGPL-3.0-or-later'
 const SELF_URL = 'https://www.gnu.org/licenses/agpl-3.0.txt'
+/** 本项目的源码地址（AGPL 第 13 条的「对应源码」入口） */
+const SELF_SOURCE = 'https://github.com/Rainboow1908/rbcode'
+/** 音乐面板默认接口的出处（按要求注明） */
+const MUSIC_API = 'https://music.gdstudio.xyz'
 
 /** 第三方组件：名称 / 许可 / 引用地址 */
 const THIRD_PARTY: { name: string; license: string; url: string }[] = [
   { name: 'OreUI（界面风格与按钮样式，vendored）', license: 'MIT', url: 'https://github.com/Spectrollay-OreUI/OreUI' },
   { name: 'Noto Sans（OreUI 按钮字体）', license: 'SIL OFL 1.1', url: 'https://github.com/notofonts/noto-fonts' },
+  { name: 'GD音乐台（音乐面板默认接口）', license: 'CC BY-NC 4.0', url: MUSIC_API },
   { name: 'React / React DOM', license: 'MIT', url: 'https://github.com/facebook/react' },
   { name: 'xterm.js（终端渲染）', license: 'MIT', url: 'https://github.com/xtermjs/xterm.js' },
   { name: 'MathJax（数学公式）', license: 'Apache-2.0', url: 'https://github.com/mathjax/MathJax-src' },
@@ -39,6 +44,14 @@ const THIRD_PARTY: { name: string; license: string; url: string }[] = [
   { name: 'zod', license: 'MIT', url: 'https://github.com/colinhacks/zod' },
   { name: 'Tailwind CSS', license: 'MIT', url: 'https://github.com/tailwindlabs/tailwindcss' },
   { name: 'Vite', license: 'MIT', url: 'https://github.com/vitejs/vite' },
+  { name: 'Tauri（桌面执行器外壳）', license: 'MIT / Apache-2.0', url: 'https://github.com/tauri-apps/tauri' },
+]
+
+/** 安装包里内置的第三方组件（不在源码仓库里，随客户端分发） */
+const BUNDLED: { name: string; license: string; url: string }[] = [
+  { name: 'proot（安卓版内置 Linux 环境）', license: 'GPL-2.0', url: 'https://github.com/termux/proot' },
+  { name: 'Ubuntu Base（安卓版内置的 Linux 根文件系统）', license: 'GPL 等多种开源许可', url: 'https://cdimage.ubuntu.com/ubuntu-base/' },
+  { name: 'Termux 依赖包（libtalloc / libandroid-shmem / termux-exec）', license: 'GPL-3.0 等', url: 'https://github.com/termux' },
 ]
 
 interface Props {
@@ -99,11 +112,64 @@ export default function LicenseDialog({ open, onClose }: Props) {
           ))}
         </ul>
 
+        <div className="mt-4 text-xs font-medium text-neutral-200">
+          {t('随客户端一起分发的组件', 'Components shipped with the clients', '隨用戶端一起分發的組件')}
+        </div>
+        <ul className="mt-1.5 space-y-1.5">
+          {BUNDLED.map((item) => (
+            <li key={item.url + item.name} className="text-[11px] leading-relaxed">
+              <span className="text-neutral-300">{item.name}</span>
+              <span className="text-neutral-600"> · {item.license} · </span>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="break-all text-amber-400 underline decoration-dotted hover:text-amber-300"
+              >
+                {item.url}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-4 text-xs font-medium text-neutral-200">
+          {t('音乐接口出处', 'Music API attribution', '音樂介面出處')}
+        </div>
+        <p className="mt-1.5 text-[11px] leading-relaxed text-neutral-400">
+          音乐接口由 GD音乐台（music.gdstudio.xyz）提供 · Written by GD Studio · License: CC BY-NC 4.0
+          <br />
+          {t(
+            '该接口仅限非商业用途；要商用请把它换成你自建或已获授权的接口（设置 → 音乐 → API 地址）。',
+            'That API is for non-commercial use only; for commercial use point the app at your own or licensed endpoint (Settings → Music → API base URL).',
+            '該介面僅限非商業用途；要商用請把它換成你自建或已獲授權的介面（設定 → 音樂 → API 位址）。',
+          )}
+        </p>
+
+        <div className="mt-4 text-xs font-medium text-neutral-200">
+          {t('本项目的源码', 'Source code', '本專案的原始碼')}
+        </div>
+        <p className="mt-1.5 text-[11px] leading-relaxed text-neutral-400">
+          {t(
+            '本软件的完整源码在这里，可以自由获取（AGPL 第 13 条）：',
+            'The complete source of this software is available here (AGPL section 13):',
+            '本軟體的完整原始碼在這裡，可以自由取得（AGPL 第 13 條）：',
+          )}
+          <br />
+          <a
+            href={SELF_SOURCE}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="break-all text-amber-400 underline decoration-dotted hover:text-amber-300"
+          >
+            {SELF_SOURCE}
+          </a>
+        </p>
+
         <p className="mt-4 text-[11px] leading-relaxed text-neutral-500">
           {t(
-            '各第三方组件版权归其各自作者所有，均按其许可条款使用；上表列出的是随本软件一起分发的部分。',
-            'All third-party components remain the property of their authors and are used under their respective licences; the list above covers what is distributed with this app.',
-            '各第三方組件版權歸其各自作者所有，均按其授權條款使用；上表列出的是隨本軟體一起分發的部分。',
+            '各第三方组件版权归其各自作者所有，均按其许可条款使用。',
+            'All third-party components remain the property of their authors and are used under their respective licences.',
+            '各第三方組件版權歸其各自作者所有，均按其授權條款使用。',
           )}
         </p>
       </div>

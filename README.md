@@ -57,4 +57,6 @@ The Linux root filesystem is not shipped here. Put an arm64 `ubuntu-base-*.tar.g
 
 AGPL-3.0-or-later; see [LICENSE](LICENSE).
 
-Bundled third-party assets keep their own licenses: OreUI styles and button component (MIT, Spectrollay-OreUI), Noto Sans Bold (SIL OFL 1.1). Other dependencies are listed in each `package.json`.
+Third-party components keep their own licenses and are listed in
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) — including the default music API
+(GD Studio, CC BY-NC 4.0, non-commercial use only).

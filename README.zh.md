@@ -57,4 +57,5 @@ Linux 根文件系统不随仓库分发：构建前把 arm64 的 `ubuntu-base-*.
 
 AGPL-3.0-or-later，见 [LICENSE](LICENSE)。
 
-随项目分发的第三方资源保留各自的许可：OreUI 样式与按钮组件（MIT，Spectrollay-OreUI）、Noto Sans Bold 字体（SIL OFL 1.1）。其余依赖见各自 `package.json`。
+第三方组件保留各自许可，清单见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)，
+其中包括音乐面板的默认接口（GD音乐台，CC BY-NC 4.0，**仅限非商业用途**）。
