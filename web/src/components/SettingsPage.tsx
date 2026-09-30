@@ -2667,7 +2667,7 @@ export default function SettingsPage(props: Props) {
                 <div className="flex flex-wrap justify-end gap-2">
                   <OreButton
                     status="normal"
-                    href="/downloads/rbcode-companion-1.0.0-setup.exe"
+                    href="/downloads/rbcode-1.0.0-windows-x64-setup.exe"
                     download
                     className="inline-flex items-center gap-1.5 rounded-md border border-neutral-700 px-2.5 py-1.5 text-xs text-neutral-300 transition-colors hover:border-amber-600 hover:text-amber-200"
                   >
@@ -2676,7 +2676,7 @@ export default function SettingsPage(props: Props) {
                   </OreButton>
                   <OreButton
                     status="normal"
-                    href="/downloads/rbcode-android-1.0.0.apk"
+                    href="/downloads/rbcode-1.0.0-android-arm64.apk"
                     download
                     className="inline-flex items-center gap-1.5 rounded-md border border-neutral-700 px-2.5 py-1.5 text-xs text-neutral-300 transition-colors hover:border-amber-600 hover:text-amber-200"
                   >
